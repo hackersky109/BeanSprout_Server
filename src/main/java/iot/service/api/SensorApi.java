@@ -46,7 +46,7 @@ public class SensorApi {
 	}
 	
 	@DELETE @Path("/{sensorId}")
-	@Consumes(MediaType.APPLICATION_JSON) @Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteSensor(@HeaderParam("apiKey")String apiKey, @HeaderParam("token")String token, @PathParam("sensorId")String sensorId) {
 		TokenBean bean = new TokenBean(apiKey, token);
 		ResponseBuilder res = new SensorApiImpl().deleteSensor(bean, sensorId);

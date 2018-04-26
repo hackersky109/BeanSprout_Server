@@ -65,7 +65,7 @@ public class SensorHandler {
 		//For BeanSprout
 		if(bean.getSensorType().equals(SensorType.BEANSPROUT_DISTANCE.toString())) {
 			RecordQuery recordq = new RecordQuery();
-			List<Record> recordList = recordq.findAll(ss.getSensorId());
+			List<Record> recordList = recordq.findAllBySid(ss.getSensorId());
 			Record record_InProgress = null;
 			for(int i=0;i<recordList.size();i++) {
 				if(recordList.get(i).getInProgress())
