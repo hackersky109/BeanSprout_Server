@@ -1,5 +1,6 @@
 package iot.handler.sensor;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -21,6 +22,7 @@ import iot.service.api.bean.TokenBean;
 import iot.utils.Timestamp;
 import iot.utils.exception.NotFoundException;
 import iot.utils.exception.UnauthorizedException;
+import iot.utils.fcm.PushNotifictionHelper;
 
 public class SensorHandler {
 	private SensorUpdate update;
@@ -76,7 +78,12 @@ public class SensorHandler {
 					record_InProgress.setInProgress(false);
 					record_InProgress.setEndTime(Timestamp.now());
 					Account acc = new AccountQuery().find(ss.getOwnerId());
-					acc.getFcmToken();
+					try {
+						PushNotifictionHelper.sendPushNotification(acc.getFcmToken(), ss.getSensorName(), "已經生長完成囉!!!");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}				
 				}
 				RecordUpdate recordu = new RecordUpdate();
 				recordu.updateRecord(record_InProgress);
