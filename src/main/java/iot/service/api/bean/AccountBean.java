@@ -1,10 +1,10 @@
 package iot.service.api.bean;
 
 public class AccountBean extends ApiBean {
+	private String fcmtoken;
 	private String name;
 	private String password;
 	private String email;
-	private String fcm_token;
 	
 	public AccountBean() {
 	}
@@ -24,9 +24,14 @@ public class AccountBean extends ApiBean {
 	public String getEmail() {
 		return email;
 	}
-	
-	public String getFcmToken() {
-		return fcm_token;
+
+	public String getFcmtoken() {
+		return fcmtoken;
 	}
+
+	public void setFcmtoken(String fcmtoken) {
+		this.fcmtoken = fcmtoken;
+	}
+	
 	
 }

@@ -23,8 +23,8 @@ public class AccountUpdate {
 	}
 	
 	public void update(Account account, AccountBean bean) {
-		if(bean.getFcmToken()!=null) {
-			account.setFcmToken(bean.getFcmToken());
+		if(bean.getFcmtoken()!=null) {
+			account.setFcmToken(bean.getFcmtoken());
 			updateHelper.saveItem(account);
 		}
 	}

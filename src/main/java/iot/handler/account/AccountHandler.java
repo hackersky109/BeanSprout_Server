@@ -37,7 +37,7 @@ public class AccountHandler {
 		Account acc = new LoginValidator(bean).validate();
 		JsonWebToken token = new JwtBuilder(acc.getUuid()).build();
 		update.update(acc, bean);
-		System.out.println("[Login] "+acc.getName()+" "+acc.getEmail()+" "+token.getJwt());
+		System.out.println("[Login] "+acc.getName()+"Email:"+acc.getEmail()+"token:"+token.getJwt()+"fcm_token:"+bean.getFcmtoken());
 		JSONObject body = acc.toJSONObject();
 		body.put("jwt", token.getJwt());
 		return body;

@@ -58,5 +58,5 @@ public class AccountApi {
 		ResponseBuilder res = new AccountApiImpl().login(bean);
 		return res.build();
 	}
-	
+
 }
