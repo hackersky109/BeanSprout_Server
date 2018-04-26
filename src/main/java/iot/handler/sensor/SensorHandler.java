@@ -16,6 +16,7 @@ import iot.db.model.query.SensorQuery;
 import iot.db.model.update.RecordUpdate;
 import iot.db.model.update.SensorUpdate;
 import iot.handler.data.DataHandler;
+import iot.handler.record.RecordHandler;
 import iot.service.api.bean.DataBean;
 import iot.service.api.bean.SensorBean;
 import iot.service.api.bean.TokenBean;
@@ -122,6 +123,8 @@ public class SensorHandler {
 		}
 		if(dataList!=null)	
 			DH.deleteData(dataList);
+		if(ss.getSensorType().equals(SensorType.BEANSPROUT_DISTANCE.toString()))
+			 new RecordHandler().deleteAllRecord(sensorId);
 		System.out.println("[deleteSensor] "+ss.toJSONObject().toJSONString());
 		JSONObject body = ss.toJSONObject();
 		return body;

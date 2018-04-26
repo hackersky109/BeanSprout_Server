@@ -46,7 +46,7 @@ public class RecordHandler {
 	}
 	
 	public JSONObject getRecordList(String sensorId) {
-		List<Record> recordList = query.findAll(sensorId);
+		List<Record> recordList = query.findAllBySid(sensorId);
 		if(recordList == null) throw new NotFoundException("RecordList not found!");
 		JSONObject result = new JSONObject();
 		result.put("recordList", recordList);
@@ -54,9 +54,16 @@ public class RecordHandler {
 	}
 	
 	public JSONObject deleteRecord(String recordId) {
-		Record rd = query.findAll(recordId).get(0);
+		Record rd = query.findAllByRid(recordId).get(0);
 		if(rd == null) throw new NotFoundException("Record not found!");
 		update.deleteRecord(rd);
 		return rd.toJSONObject();
+	}
+	
+	public void deleteAllRecord(String sensorId) {
+		List<Record> recordList = query.findAllBySid(sensorId);
+		if(recordList == null) throw new NotFoundException("Record not found!");
+		for(int i=0;i<recordList.size();i++)
+			update.deleteRecord(recordList.get(i));
 	}
 }

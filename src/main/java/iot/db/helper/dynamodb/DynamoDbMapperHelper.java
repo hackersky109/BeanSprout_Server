@@ -27,6 +27,10 @@ public class DynamoDbMapperHelper<M>  extends DynamoDbHelper {
 		return mapper.load(clazz, pk);
 	}
 	
+	public M loadByPkRk(Object pk, Object rk){
+		return mapper.load(clazz, pk, rk);
+	}
+	
 	public boolean existsByPk(Object pk) {
 		return loadByPk(pk) != null;
 	}

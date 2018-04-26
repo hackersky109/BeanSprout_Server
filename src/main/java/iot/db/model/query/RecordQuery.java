@@ -13,10 +13,14 @@ public class RecordQuery {
 	}
 	
 	public Record find(String recordId) {
-		return queryHelper.loadByPk(recordId);
+		return queryHelper.loadByPkRk(recordId, null);
 	}
 	
-	public List<Record> findAll(String sensorId) {
+	public List<Record> findAllByRid(String recordId) {
+		return queryHelper.scanAttributeN("recordId", recordId);
+	}
+	
+	public List<Record> findAllBySid(String sensorId) {
 		return queryHelper.scanAttributeN("sensorId", sensorId);
 	}
 }
