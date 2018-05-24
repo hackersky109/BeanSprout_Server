@@ -15,7 +15,8 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.json.simple.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import iot.service.api.bean.DataBean;
 import iot.service.api.bean.SensorBean;
@@ -69,12 +70,13 @@ public class SensorApi {
 		return res.build();
 	}
 	
-	@POST @Path("/{sensorId}/data")
+	@GET @Path("/{sensorId}/beansproutdata")
 	@Consumes(MediaType.APPLICATION_JSON) @Produces(MediaType.APPLICATION_JSON)
-	public Response newData(@HeaderParam("uploadKey")String uploadKey, @PathParam("sensorId")String sensorId, DataBean bean){
-		bean.setUploadKey(uploadKey).setSensorId(sensorId);
-		System.out.println(bean.getSensorId()+"\n"+bean.getData());
-		ResponseBuilder res = new SensorApiImpl().newData(bean);
+	public Response newData(@PathParam("sensorId")String sensorId, @QueryParam("value")int value){
+		DataBean bean = new DataBean();
+//		bean.setUploadKey(uploadKey).setSensorId(sensorId);
+		bean.setSensorId(sensorId);
+		ResponseBuilder res = new SensorApiImpl().newData(bean, value);
 		return res.build();	
 	}
 	

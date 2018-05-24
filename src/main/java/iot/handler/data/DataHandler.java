@@ -15,8 +15,8 @@ public class DataHandler {
 		query = new DataQuery(tableName);
 		update = new DataUpdate(tableName);
 		}
-	public List<Data> newData(DataBean bean) {
-		return update.newData(bean);
+	public List<Data> newData(DataBean bean, int value) {
+		return update.newData(bean, value);
 	}
 		
 	public List<Data> getData(String sensorId, String from, String to, int limit) {

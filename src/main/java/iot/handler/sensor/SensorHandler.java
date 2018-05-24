@@ -55,12 +55,13 @@ public class SensorHandler {
 		return result;
 	}
 
-	public JSONObject addData(DataBean bean) {
+	public JSONObject addData(DataBean bean, int value) {
+		JSONObject result = new JSONObject();	
 		Sensor ss = query.find(bean.getSensorId());
 		if(ss == null) throw new NotFoundException("Sensor not found!");
-		if(!ss.getUploadKey().equals(bean.getUploadKey())) throw new UnauthorizedException("Invalid uploadKey!");
+//		if(!ss.getUploadKey().equals(bean.getUploadKey())) throw new UnauthorizedException("Invalid uploadKey!");
 		bean.setUserId(ss.getOwnerId()).setSensorType(ss.getSensorType());
-		List<Data> dataList = new DataHandler(bean.getSensorType()).newData(bean);
+		List<Data> dataList = new DataHandler(bean.getSensorType()).newData(bean, value);
 		
 		//For BeanSprout
 		if(bean.getSensorType().equals(SensorType.BEANSPROUT_DISTANCE.toString())) {
@@ -88,13 +89,15 @@ public class SensorHandler {
 				}
 				RecordUpdate recordu = new RecordUpdate();
 				recordu.updateRecord(record_InProgress);
+				result.put("percentage", record_InProgress.getPercentage());
+				result.put("InProgress", "true");
+				return result;
 			}
 				
 		}
 		//For BeanSprout
-		
-		JSONObject result = new JSONObject();	
-		result.put("dataList", dataList);
+		result.put("percentage", 0);
+		result.put("InProgress", "false");
 		return result;
 	}
 	

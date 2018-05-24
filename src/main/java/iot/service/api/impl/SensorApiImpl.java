@@ -43,9 +43,9 @@ public class SensorApiImpl extends ApiImpl{
 		return buildResponse();
 	}
 	
-	public ResponseBuilder newData(DataBean bean) {
+	public ResponseBuilder newData(DataBean bean, int value) {
 		try {
-			body = new SensorHandler().addData(bean);
+			body = new SensorHandler().addData(bean, value);
 			body.put("status", 200);
 		} catch(ErrorException e) {
 			body = e.getJSONObject();

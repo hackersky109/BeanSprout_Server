@@ -9,7 +9,6 @@ import iot.utils.AbstractJSONObject;
 import iot.utils.json.JSONConverter;
 
 public class DataBean extends AbstractJSONObject{
-	@Required(message="uploadKey must not be null")
 	private String uploadKey;
 	private String sensorId;
 	private String userId;

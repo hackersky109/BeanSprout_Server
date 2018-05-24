@@ -13,6 +13,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig.Table
 import iot.db.helper.dynamodb.update.DataUpdateDynamoHelper;
 import iot.db.model.Data;
 import iot.service.api.bean.DataBean;
+import iot.utils.Timestamp;
 
 
 public class DataUpdate {
@@ -25,16 +26,29 @@ public class DataUpdate {
 		updateHelper = new DataUpdateDynamoHelper(tableName, config);	
 	}
 
-	public List<Data> newData(DataBean bean) {
-		JSONArray data = bean.getData();
+	public List<Data> newData(DataBean bean, int value) {
+//		JSONArray data = bean.getData();
 		List<Data> dataList = new ArrayList<Data>();
-		for(int i=0;i<data.length();i++){
-			JSONObject obj = data.getJSONObject(i);
-			Data newdata = new Data(bean);
-			newdata.setValue(obj.getDouble("value"));
-			newdata.setTimestamp(obj.getLong("timestamp"));
-			dataList.add(newdata);
-		}	
+//		for(int i=0;i<data.length();i++){
+//			JSONObject obj = data.getJSONObject(i);
+//			Data newdata = new Data(bean);
+//			newdata.setValue(obj.getDouble("value"));
+//			long timestamp;
+//			try {
+//				timestamp = obj.getLong("timestamp");
+//			} catch(Exception e) {
+//				timestamp = Timestamp.now();
+//			}
+//			newdata.setTimestamp(timestamp);
+//			dataList.add(newdata);
+//		}	
+		
+		//
+		Data newdata = new Data(bean);
+		newdata.setValue(value);
+		newdata.setTimestamp(Timestamp.now());
+		dataList.add(newdata);
+		//
 		List<Data> objToDelete = Collections.<Data> emptyList();
 		updateHelper.batchWrite(dataList, objToDelete, config);
 		
